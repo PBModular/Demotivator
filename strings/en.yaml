@@ -1,2 +1,3 @@
-some:
-  strings: "Hello, World!"
+error:
+  reply: "Pls, reply to message"
+  photo: "Pls, reply to message with photo"

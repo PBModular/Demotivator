@@ -1,6 +1,6 @@
 info:
-  name: ModuleTemplate
-  author: TemplateDeveloper
+  name: Demotivator
+  author: CakesTwix
   version: 0.0.1
-  description: Just a module template
-  src_url: https://github.com/PBModular/ModuleTemplate
+  description: Create demotivators without watermarks and other crap 
+  src_url: https://github.com/PBModular/Demotivator

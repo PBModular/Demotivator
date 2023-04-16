@@ -1,1 +1,1 @@
-from .main import ModuleTemplate
+from .main import DemotivatorModule
