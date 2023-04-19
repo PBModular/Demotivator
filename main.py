@@ -16,10 +16,22 @@ class DemotivatorModule(BaseModule):
 
         if not message.reply_to_message:
             return await message.reply(self.S["error"]["reply"])
-        if not message.reply_to_message.photo:
-            return await message.reply(self.S["error"]["photo"])
+        if not (message.reply_to_message.photo or message.reply_to_message.animation or message.reply_to_message.video):
+            return await message.reply(self.S["error"]["media"])
 
-        media_path = await bot.download_media(message.reply_to_message, "demot.png")
+        media_path = await bot.download_media(message.reply_to_message)
 
-        demot.generate_demotivator(media_path, os.path.abspath(__file__).replace("main.py", "demot.png"), message.text[5:]) # Drop command
-        await message.reply_photo(os.path.abspath(__file__).replace("main.py", "demot.png"))
+        demot_path = os.path.abspath(__file__).replace("main.py", media_path.split("/")[-1])
+        demot.generate_demotivator(media_path, demot_path, message.text[5:]) # Drop command
+    
+        # logger.info(media_path)
+        # logger.info(demot_path)
+
+        # TODO: Fix audio in video (No Audio)
+        # Send
+        if demot_path.endswith((".mp4", ".MP4")):  # If video/gif
+            return await message.reply_video(os.path.abspath(__file__).replace("main.py", media_path.split("/")[-1]))
+        elif demot_path.endswith((".jpg", ".png")):  # If general photo
+            return await message.reply_photo(os.path.abspath(__file__).replace("main.py", media_path.split("/")[-1]))
+
+        os.remove(os.path.abspath(__file__).replace("main.py", media_path.split("/")[-1]))

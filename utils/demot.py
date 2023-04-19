@@ -153,7 +153,7 @@ def generate_demotivator(input_file: str, output_file: str, text: str = "зач�
     # pil image -> opencv image (numpy matrix)
     template = np.array(image)  # noqa
 
-    if input_file.endswith(".mp4"):  # если видео
+    if input_file.endswith((".mp4", ".MP4")):  # если видео
         return write_video(input_file, output_file, template)
     elif input_file.endswith(".jpg"):  # если изображение
         return write_image(input_file, output_file, template)
@@ -163,4 +163,4 @@ def generate_demotivator(input_file: str, output_file: str, text: str = "зач�
     # что это за херня?
     raise NotImplementedError
 
-# generate_demotivator("/home/cakestwix/Pictures/cri.png", "deg.png")
+# generate_demotivator("/home/cakestwix/Pictures/video_2023-04-19_10-13-03.mp4", "deg.mp4")
