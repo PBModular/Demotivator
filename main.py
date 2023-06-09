@@ -8,7 +8,7 @@ import os
 logger = logging.getLogger(__name__)
 
 class DemotivatorModule(BaseModule):
-    
+    demotivator = demot.Demotivator()
     # Register handler
     @command("dmt")
     async def dmt_cmd(self, bot: Client, message: Message):
@@ -22,7 +22,7 @@ class DemotivatorModule(BaseModule):
         media_path = await bot.download_media(message.reply_to_message)
 
         demot_path = os.path.abspath(__file__).replace("main.py", media_path.split("/")[-1])
-        demot.generate_demotivator(media_path, demot_path, message.text[5:]) # Drop command
+        self.demotivator.generate_demotivator(media_path, demot_path, message.text[5:]) # Drop command
     
         # logger.info(media_path)
         # logger.info(demot_path)
@@ -30,8 +30,8 @@ class DemotivatorModule(BaseModule):
         # TODO: Fix audio in video (No Audio)
         # Send
         if demot_path.endswith((".mp4", ".MP4")):  # If video/gif
-            return await message.reply_video(os.path.abspath(__file__).replace("main.py", media_path.split("/")[-1]))
+            await message.reply_video(os.path.abspath(__file__).replace("main.py", media_path.split("/")[-1]))
         elif demot_path.endswith((".jpg", ".png")):  # If general photo
-            return await message.reply_photo(os.path.abspath(__file__).replace("main.py", media_path.split("/")[-1]))
+            await message.reply_photo(os.path.abspath(__file__).replace("main.py", media_path.split("/")[-1]))
 
         os.remove(os.path.abspath(__file__).replace("main.py", media_path.split("/")[-1]))
