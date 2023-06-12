@@ -4,10 +4,30 @@ import logging
 from pyrogram import Client
 from .utils import demot
 import os
+import inspect
 
 logger = logging.getLogger(__name__)
 
 class DemotivatorModule(BaseModule):
+    @property
+    def help_page(self) -> str:
+        """
+        Help string to be displayed in Core module help command. Highly recommended to set this!
+        Defaults to auto-generated command listing, which uses callback func __doc__ for description
+        """
+        auto_help = f'{self.S["help"]["available"]}:\n'
+        commands = [s for s in dir(self) if s.endswith("_cmd")]
+        for cmd in commands:
+            if cmd in ['start_cmd']:
+                continue
+            
+            auto_help += (
+                f"/{cmd.replace('_cmd', '')}"
+                + (f" - {getattr(self, cmd).__doc__}" if getattr(self, cmd).__doc__ else "")
+                + "\n"
+            )
+        return auto_help
+
     demotivator = demot.Demotivator()
     # Register handler
     @command("dmt")

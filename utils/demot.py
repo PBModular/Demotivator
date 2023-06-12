@@ -24,8 +24,6 @@ class Demotivator:
         # margin - padding - media - padding - text
         self.HEIGHT = self.FRAME_MARGIN_Y + 2 * self.FRAME_INNER_PADDING + MEDIA_HEIGHT + self.TEXT_AREA_HEIGHT
 
-        print(self.WIDTH)
-        print(self.HEIGHT)
         if self.WIDTH < self.HEIGHT:
             self.TEXT_DEFAULT_FONT_SIZE = int(self.HEIGHT * 0.06)   # высота области для текста
         else:
@@ -146,7 +144,6 @@ class Demotivator:
         _, _, text_width, text_height = font.getbbox(text)
 
         imread = cv2.imread(input_file)
-        print(type(imread))
         if type(imread) == "numpy.ndarray":
             self.update_params(imread.shape[1], imread.shape[0])
         else:

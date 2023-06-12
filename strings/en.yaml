@@ -2,3 +2,6 @@ error:
   reply: "Pls, reply to message"
   photo: "Pls, reply to message with photo"
   media: "Pls, reply to message with photo/video/gif"
+
+help:
+  available: "Available commands"
